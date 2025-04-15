@@ -1,12 +1,13 @@
 # ------------------- 基础模型配置 -------------------
-model_name_or_path: models/Qwen2.5-3B-Instruct  # 使用Qwen2.5-1.5B基座模型
+model_name_or_path: models/Qwen2.5-3B-Instruct  # 使用Qwen2.5-3B基座模型
 
 # ------------------- 训练阶段配置 -------------------
 stage: sft
 do_train: true
-report_to: tensorboard    # Tensorboard设置
+report_to: wandb    # Tensorboard设置
+run_name: qwen3b_instruct_ts_full
 logging_dir: ./log_output/qwen3b_instruct_ts_full_llamafactory 
-# finetuning_type: lora  # lora微调
+finetuning_type: full  # 全参
 # lora_target: all
 # lora_rank: 16
 flash_attn: fa2
@@ -22,14 +23,14 @@ overwrite_cache: true  # 重新预处理数据时强制刷新缓存
 preprocessing_num_workers: 16  # 数据预处理并行进程数（根据CPU核数调整）
 
 # ------------------- 训练输出相关 -------------------
-output_dir: ./output/qwen3b_instruct_ts_lora_llamafactory  # 输出目录需要存在可写权限
+output_dir: ./output/qwen3b_instruct_ts_full_llamafactory  # 输出目录需要存在可写权限
 logging_steps: 10  # 每10步输出一次日志
-save_steps: 500  # 每500步保存一次检查点
+save_steps: 1000  # 每500步保存一次检查点
 plot_loss: true  # 绘制训练损失曲线
 
 # ------------------- 训练超参数 -------------------
-per_device_train_batch_size: 8  
-gradient_accumulation_steps: 1              
+per_device_train_batch_size: 1  
+gradient_accumulation_steps: 4              
 learning_rate: 5.0e-6                       # 1.5B模型SFT建议学习率（高于7B但低于large模型）
 num_train_epochs: 5                         # GSM8K需更多epoch学习推理逻辑
 max_grad_norm: 0.5                          # 梯度裁剪阈值
@@ -39,9 +40,9 @@ weight_decay: 0.05                          # 新增权重衰减，防止过拟�
 
 # ------------------- 验证与评估 -------------------
 val_size: 0.05  # 10%数据作为验证集
-per_device_eval_batch_size: 16  # 评估时batch_size可以更大
+per_device_eval_batch_size: 1  
 eval_strategy: steps  # 按步数评估
-eval_steps: 500  # 每200步验证一次（GSM8K需要及时评估推理能力）
+eval_steps: 500  # 每500步验证一次（GSM8K需要及时评估推理能力）
 
 # ------------------- 显存优化 -------------------
 gradient_checkpointing: true  # 激活梯度检查点节省显存
