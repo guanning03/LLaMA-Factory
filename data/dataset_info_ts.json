@@ -1,0 +1,18 @@
+{
+    "train_1": {
+      "file_name": "math-hard-and-easy_qwen2.5-3_b-instruct_corpus48k_tournament_sft-train-00000-of-00002.arrow",
+      "formatting": "alpaca",
+      "columns": {
+          "query": "content_to_verify",
+          "response": "sft_data"
+      }
+  },
+  "train_2": {
+      "file_name": "math-hard-and-easy_qwen2.5-3_b-instruct_corpus48k_tournament_sft-train-00001-of-00002.arrow",
+      "formatting": "alpaca",
+      "columns": {
+          "query": "content_to_verify",
+          "response": "sft_data"
+      }
+  }
+}

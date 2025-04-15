@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=0,1,2,3 llamafactory-cli train trial/qwen2.5-3b-instruct_ts.yaml
