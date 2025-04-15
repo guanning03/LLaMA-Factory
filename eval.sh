@@ -1,0 +1,2 @@
+lm_eval --model hf --model_args pretrained="models/Qwen2.5-1.5B-Instruct" --tasks gsm8k --device cuda:4 --batch_size 64 --output_path ./eval_results --num_fewshot 0
+lm_eval --model hf --model_args pretrained="output/qwen1.5b_instruct_gsm8k_lora_llamafactory/checkpoint-1800" --tasks gsm8k --device cuda:4 --batch_size 64 --output_path ./eval_results --num_fewshot 0
